@@ -20,7 +20,8 @@ function run() {
 
     if (doc !== undefined) {
       const name = doc.name();
-      const path = doc.path();
+      // Untitled documents have no paths.
+      const path = doc.path() || name;
 
       docsMap[path] = {
         uid: path,
