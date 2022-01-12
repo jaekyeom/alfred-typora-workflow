@@ -34,6 +34,13 @@ function run() {
           " ",
         )}`,
         arg: `${win.id()}`,
+        mods: {
+          alt: {
+            valid: true,
+            arg: `${win.id()}`,
+            subtitle: `Close ${name}${doc.modified() ? " (Edited)" : ""}`,
+          }
+        }
       };
     }
   }

@@ -1,6 +1,6 @@
 # Alfred Typora Workflow
 
-Alfred workflow for listing, querying, and activating open [Typora](https://typora.io/) documents.
+Alfred workflow for querying and activating (+ α) open [Typora](https://typora.io/) documents.
 
 <p align="center">
 <img alt="Typora workflow screenshot" src="./screenshot.png" width="70%" />
@@ -12,7 +12,9 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ## Usage
 
-`ty {query}`
+- `ty {query}`
+  - `↩`: Activate the selected document.
+  - `⌥ + ↩`: Close the selected document.
 
 ## Credits
 

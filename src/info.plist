@@ -21,6 +21,21 @@
 				<false/>
 			</dict>
 		</array>
+		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>15A94388-7344-4067-8914-E4A7F58CE782</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<array>
 			<dict>
@@ -33,12 +48,48 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>C73AEB76-A907-4D9F-9642-246A61E9AC62</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
 		</array>
 		<key>BE9AA59A-629B-46B3-BB45-08BC9FD9956E</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>7B200672-2C74-4474-96C9-99BC42F29DBE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C73AEB76-A907-4D9F-9642-246A61E9AC62</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EAE095B0-A445-46CC-95C7-6B1905922C38</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -178,6 +229,91 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>./close-doc.js "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>EAE095B0-A445-46CC-95C7-6B1905922C38</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>ty </string>
+				<key>leftcursor</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.showalfred</string>
+			<key>uid</key>
+			<string>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{query}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>reopenSearch</string>
+						<key>outputlabel</key>
+						<string>reopenSearch</string>
+						<key>uid</key>
+						<string>15A94388-7344-4067-8914-E4A7F58CE782</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>noAction</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>C73AEB76-A907-4D9F-9642-246A61E9AC62</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>https://github.com/jaekyeom/alfred-typora-workflow
@@ -195,9 +331,16 @@ Typing `ty {query}` shows and filters open Typora documents and the user can act
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>505</integer>
+			<integer>485</integer>
 			<key>ypos</key>
 			<integer>50</integer>
+		</dict>
+		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>655</integer>
+			<key>ypos</key>
+			<integer>200</integer>
 		</dict>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<dict>
@@ -213,7 +356,30 @@ Typing `ty {query}` shows and filters open Typora documents and the user can act
 			<key>ypos</key>
 			<integer>80</integer>
 		</dict>
+		<key>C73AEB76-A907-4D9F-9642-246A61E9AC62</key>
+		<dict>
+			<key>xpos</key>
+			<integer>400</integer>
+			<key>ypos</key>
+			<integer>210</integer>
+		</dict>
+		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
+		<dict>
+			<key>xpos</key>
+			<integer>485</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
+		<dict>
+			<key>xpos</key>
+			<integer>805</integer>
+			<key>ypos</key>
+			<integer>195</integer>
+		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
