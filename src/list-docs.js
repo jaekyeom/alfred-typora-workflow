@@ -22,12 +22,13 @@ function run() {
       const name = doc.name();
       // Untitled documents have no paths.
       const path = doc.path() || name;
+      const hasPath = !!doc.path();
 
       docsMap[path] = {
         uid: path,
         title: name,
         subtitle: path,
-        quicklookurl: path,
+        quicklookurl: (hasPath ? path : null),
         match: `${name} ${path.replace(
           /[^A-Za-z0-9]/g,
           " ",
