@@ -1,6 +1,7 @@
 # Alfred Typora Workflow
 
-Alfred workflow for querying and activating (+ α) open [Typora](https://typora.io/) documents.
+Alfred workflow for querying and opening/closing [Typora](https://typora.io/) documents.  
+It automatically searches the Git repositories or directories for markdown files, by default.
 
 <p align="center">
 <img alt="Typora workflow screenshot" src="./screenshot.png" width="70%" />
@@ -12,9 +13,13 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ## Usage
 
-- `ty {query}`
-  - `↩`: Activate the selected document.
-  - `⌥ + ↩`: Close the selected document.
+- `ty {query}`: Query Typora documents.
+  - `↩`: Open/activate the selected document.
+  - `⌥ + ↩`: Close the selected document (if it's open).
+
+## Configurations
+
+- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
 
 ## Credits
 
