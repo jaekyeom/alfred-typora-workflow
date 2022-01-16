@@ -21,6 +21,31 @@
 				<false/>
 			</dict>
 		</array>
+		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7B200672-2C74-4474-96C9-99BC42F29DBE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>C100874B-2548-438A-825A-E581B37D46D5</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
 		<array>
 			<dict>
@@ -40,7 +65,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>BE9AA59A-629B-46B3-BB45-08BC9FD9956E</string>
+				<string>342DB1B6-492B-4C31-84DE-85DF037E6CA0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -50,7 +75,7 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>C73AEB76-A907-4D9F-9642-246A61E9AC62</string>
+				<string>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</string>
 				<key>modifiers</key>
 				<integer>524288</integer>
 				<key>modifiersubtext</key>
@@ -59,20 +84,7 @@
 				<true/>
 			</dict>
 		</array>
-		<key>BE9AA59A-629B-46B3-BB45-08BC9FD9956E</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>7B200672-2C74-4474-96C9-99BC42F29DBE</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>C73AEB76-A907-4D9F-9642-246A61E9AC62</key>
+		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -81,6 +93,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>sourceoutputuid</key>
+				<string>C100874B-2548-438A-825A-E581B37D46D5</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -102,7 +116,7 @@
 	<key>createdby</key>
 	<string>Jaekyeom Kim</string>
 	<key>description</key>
-	<string>Search open documents from Typora</string>
+	<string>Search Typora documents</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -215,19 +229,47 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>{query}</string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict/>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:isOpen}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>1</string>
+						<key>outputlabel</key>
+						<string>activateOpenFile</string>
+						<key>uid</key>
+						<string>C100874B-2548-438A-825A-E581B37D46D5</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>openFileFromDisk</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
+			<string>alfred.workflow.utility.conditional</string>
 			<key>uid</key>
-			<string>BE9AA59A-629B-46B3-BB45-08BC9FD9956E</string>
+			<string>342DB1B6-492B-4C31-84DE-85DF037E6CA0</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string>/Applications/Typora.app</string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -300,17 +342,30 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>{query}</string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict/>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:isOpen}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>1</string>
+						<key>outputlabel</key>
+						<string>closeOpenFile</string>
+						<key>uid</key>
+						<string>C100874B-2548-438A-825A-E581B37D46D5</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>noAction</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
+			<string>alfred.workflow.utility.conditional</string>
 			<key>uid</key>
-			<string>C73AEB76-A907-4D9F-9642-246A61E9AC62</string>
+			<string>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -318,7 +373,13 @@
 	<key>readme</key>
 	<string>https://github.com/jaekyeom/alfred-typora-workflow
 
-Typing `ty {query}` shows and filters open Typora documents and the user can activate one of them by selecting it with Enter key.</string>
+Usage
+- `ty {query}`: Query Typora documents.
+  - `↩`: Open/activate the selected document.
+  - `⌥ + ↩`: Close the selected document (if it's open).
+
+Configurations
+- `LIST_ONLY_OPEN_DOCS`: If set to 1, it only queries from open documents (default: 0).</string>
 	<key>uidata</key>
 	<dict>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
@@ -328,55 +389,67 @@ Typing `ty {query}` shows and filters open Typora documents and the user can act
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
+		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
+		<dict>
+			<key>xpos</key>
+			<integer>355</integer>
+			<key>ypos</key>
+			<integer>70</integer>
+		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>485</integer>
+			<integer>520</integer>
 			<key>ypos</key>
-			<integer>50</integer>
+			<integer>40</integer>
 		</dict>
 		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>655</integer>
+			<integer>670</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>335</integer>
 		</dict>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<dict>
 			<key>xpos</key>
-			<integer>215</integer>
+			<integer>185</integer>
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
-		<key>BE9AA59A-629B-46B3-BB45-08BC9FD9956E</key>
+		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>400</integer>
+			<integer>520</integer>
 			<key>ypos</key>
-			<integer>80</integer>
+			<integer>160</integer>
 		</dict>
-		<key>C73AEB76-A907-4D9F-9642-246A61E9AC62</key>
+		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>400</integer>
+			<integer>355</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>345</integer>
 		</dict>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<dict>
 			<key>xpos</key>
-			<integer>485</integer>
+			<integer>520</integer>
 			<key>ypos</key>
-			<integer>180</integer>
+			<integer>315</integer>
 		</dict>
 		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
 		<dict>
 			<key>xpos</key>
-			<integer>805</integer>
+			<integer>800</integer>
 			<key>ypos</key>
-			<integer>195</integer>
+			<integer>330</integer>
 		</dict>
+	</dict>
+	<key>variables</key>
+	<dict>
+		<key>LIST_ONLY_OPEN_DOCS</key>
+		<string>0</string>
 	</dict>
 	<key>version</key>
 	<string>1.0.1</string>
