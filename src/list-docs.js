@@ -51,7 +51,12 @@ function run() {
               valid: true,
               arg: `${win.id()}`,
               subtitle: `Close ${name}${doc.modified() ? " (Edited)" : ""}`,
-            }
+            },
+            cmd: {
+              valid: hasPath,
+              arg: path,
+              subtitle: (hasPath ? 'Reveal file in Finder' : ''),
+            },
           },
           variables: {
             isOpen: true,
@@ -92,6 +97,13 @@ function run() {
               )}`,
               icon: { path: 'icon_dimmed.png' },
               arg: path,
+              mods: {
+                cmd: {
+                  valid: true,
+                  arg: path,
+                  subtitle: `Reveal file in Finder`,
+                },
+              },
               variables: {
                 isOpen: false,
               },

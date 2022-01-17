@@ -65,6 +65,16 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>342DB1B6-492B-4C31-84DE-85DF037E6CA0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
@@ -123,6 +133,19 @@
 	<string>Typora Documents</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>path</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.revealfile</string>
+			<key>uid</key>
+			<string>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -377,6 +400,7 @@ Usage
 - `ty {query}`: Query Typora documents.
   - `↩`: Open/activate the selected document.
   - `⌥ + ↩`: Close the selected document (if it's open).
+  - `⌘ + ↩`: Reveal file in Finder.
 
 Configurations
 - `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.</string>
@@ -387,63 +411,70 @@ Configurations
 			<key>xpos</key>
 			<integer>40</integer>
 			<key>ypos</key>
-			<integer>50</integer>
+			<integer>115</integer>
 		</dict>
 		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
 		<dict>
 			<key>xpos</key>
-			<integer>355</integer>
+			<integer>365</integer>
 			<key>ypos</key>
-			<integer>70</integer>
+			<integer>135</integer>
 		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>520</integer>
+			<integer>530</integer>
 			<key>ypos</key>
-			<integer>40</integer>
+			<integer>105</integer>
+		</dict>
+		<key>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</key>
+		<dict>
+			<key>xpos</key>
+			<integer>365</integer>
+			<key>ypos</key>
+			<integer>10</integer>
 		</dict>
 		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>670</integer>
+			<integer>680</integer>
 			<key>ypos</key>
-			<integer>335</integer>
+			<integer>365</integer>
 		</dict>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<dict>
 			<key>xpos</key>
 			<integer>185</integer>
 			<key>ypos</key>
-			<integer>50</integer>
+			<integer>115</integer>
 		</dict>
 		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>520</integer>
+			<integer>530</integer>
 			<key>ypos</key>
-			<integer>160</integer>
+			<integer>225</integer>
 		</dict>
 		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>355</integer>
+			<integer>365</integer>
 			<key>ypos</key>
-			<integer>345</integer>
+			<integer>375</integer>
 		</dict>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<dict>
 			<key>xpos</key>
-			<integer>520</integer>
+			<integer>530</integer>
 			<key>ypos</key>
-			<integer>315</integer>
+			<integer>345</integer>
 		</dict>
 		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
 		<dict>
 			<key>xpos</key>
-			<integer>800</integer>
+			<integer>810</integer>
 			<key>ypos</key>
-			<integer>330</integer>
+			<integer>360</integer>
 		</dict>
 	</dict>
 	<key>variables</key>

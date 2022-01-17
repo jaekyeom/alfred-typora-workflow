@@ -16,6 +16,7 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 - `ty {query}`: Query Typora documents.
   - `↩`: Open/activate the selected document.
   - `⌥ + ↩`: Close the selected document (if it's open).
+  - `⌘ + ↩`: Reveal file in Finder.
 
 ## Configurations
 
