@@ -24,7 +24,8 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ## Credits
 
-Credits to [alfred-browser-tabs](https://github.com/epilande/alfred-browser-tabs) for the structure of the workflow.
+- [alfred-browser-tabs](https://github.com/epilande/alfred-browser-tabs) for the structure of the workflow.
+- [OneUpdater](https://github.com/vitorgalvao/alfred-workflows/tree/master/OneUpdater) for the automatic updater node.
 
 ## License
 
