@@ -1,5 +1,27 @@
 #!/usr/bin/env osascript -l JavaScript
 
+class MruList {
+  constructor(size) {
+    this.size = size;
+    this.list = [];
+  }
+
+  setList(list) {
+    this.list = list;
+    this.list.splice(0, this.list.length - this.size);
+  }
+
+  add(item) {
+    const idx = this.list.indexOf(item);
+    if (idx == -1) {
+      this.list.push(item);
+    } else {
+      this.list.push(this.list.splice(idx, 1)[0]);
+    }
+    this.list.splice(0, this.list.length - this.size);
+  }
+}
+
 function run() {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
@@ -20,6 +42,28 @@ function run() {
   }
 
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
+  const numRecentDirs = parseInt($.getenv('NUM_RECENT_DIRS'));
+  const alfredWorkflowDataPath = $($.getenv('alfred_workflow_data')).stringByStandardizingPath.js
+  const dataPath = alfredWorkflowDataPath + '/data.json'
+  const getData = (function() {
+    let data = undefined;
+    return function() {
+      if (data === undefined) {
+        if ($.NSFileManager.defaultManager.fileExistsAtPath(dataPath) && $.NSFileManager.defaultManager.isReadableFileAtPath) {
+          const jsonStr = ObjC.unwrap($.NSString.alloc.initWithDataEncoding(
+            $.NSFileManager.defaultManager.contentsAtPath(dataPath),
+            $.NSUTF8StringEncoding,
+          ));
+          data = JSON.parse(jsonStr);
+        } else {
+          data = null;
+        }
+      }
+      return data;
+    };
+  })();
+  const mruDirList = new MruList(numRecentDirs);
+  getData() && mruDirList.setList(getData()['mruDirList']);
 
   const items = [];
   const addedDocs = new Set();
@@ -75,12 +119,21 @@ function run() {
     }
   }
 
+  for (let i = mruDirList.list.length - 1; i >= 0; i--) {
+    const dir = mruDirList.list[i];
+    if (!addedDirs.has(dir)) {
+      dirs.unshift(dir);
+      addedDirs.add(dir);
+    }
+  }
+
   const processedDirs = new Set();
   if (!listOnlyOpenDocs) {
-    var curr = Application.currentApplication();
+    const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
     for (let i = 0; i < dirs.length; i++) {
       const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
+      mruDirList.add(dir);
       if (!processedDirs.has(dir)) {
         const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/*.md" || ls *.md`).split('\r');
         for (let d = 0; d < mdFiles.length; d++) {
@@ -115,6 +168,18 @@ function run() {
       }
     }
   }
+
+  // Make the Alfred workflow data directory.
+  $.NSFileManager.defaultManager.createDirectoryAtPathWithIntermediateDirectoriesAttributesError(
+    alfredWorkflowDataPath,
+    1,  // Make intermediate directories.
+    $(),
+    $(),  // error
+  );
+  
+  $.NSString.alloc.initWithUTF8String(JSON.stringify({
+    mruDirList: mruDirList.list,
+  })).writeToFileAtomicallyEncodingError(dataPath, true, $.NSUTF8StringEncoding, null);
 
   return JSON.stringify({ items });
 }

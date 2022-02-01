@@ -504,7 +504,8 @@ Usage
   - `⌘ + ↩`: Reveal file in Finder.
 
 Configurations
-- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.</string>
+- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
+- `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.</string>
 	<key>uidata</key>
 	<dict>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
@@ -593,6 +594,8 @@ Configurations
 	<dict>
 		<key>LIST_ONLY_OPEN_DOCS</key>
 		<string>0</string>
+		<key>NUM_RECENT_DIRS</key>
+		<string>5</string>
 	</dict>
 	<key>version</key>
 	<string>1.0.3</string>
