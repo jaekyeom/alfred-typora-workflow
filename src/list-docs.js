@@ -26,21 +26,6 @@ function run() {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
 
-  const app = Application("Typora");
-  if (!app.running()) {
-    return JSON.stringify({
-      items: [
-        {
-          title: `Typora is not running`,
-          subtitle: `Press enter to launch Typora`,
-          variables: {
-            isOpen: true,
-          },
-        },
-      ],
-    });
-  }
-
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
   const numRecentDirs = parseInt($.getenv('NUM_RECENT_DIRS'));
   const alfredWorkflowDataPath = $($.getenv('alfred_workflow_data')).stringByStandardizingPath.js
@@ -69,50 +54,62 @@ function run() {
   const addedDocs = new Set();
   const dirs = [];
   const addedDirs = new Set();
-  for (let w = 0; w < app.windows.length; w++) {
-    const win = app.windows[w];
-    const doc = win.document();
 
-    if (doc !== undefined) {
-      const name = doc.name();
-      // Untitled documents have no paths.
-      const path = doc.path() || name;
-      const hasPath = !!doc.path();
+  const app = Application("Typora");
+  if (!app.running()) {
+    items.push({
+      title: `Typora is not running`,
+      subtitle: `Press enter to launch Typora`,
+      variables: {
+        isOpen: true,
+      },
+    });
+  } else {
+    for (let w = 0; w < app.windows.length; w++) {
+      const win = app.windows[w];
+      const doc = win.document();
 
-      if (!addedDocs.has(path)) {
-        items.push({
-          title: name,
-          subtitle: path,
-          quicklookurl: (hasPath ? path : null),
-          match: `${name} ${path.replace(
-            /[^A-Za-z0-9]/g,
-            " ",
-          )}`,
-          icon: { path: 'icon.png' },
-          arg: `${win.id()}`,
-          mods: {
-            alt: {
-              valid: true,
-              arg: `${win.id()}`,
-              subtitle: `Close ${name}${doc.modified() ? " (Edited)" : ""}`,
+      if (doc !== undefined) {
+        const name = doc.name();
+        // Untitled documents have no paths.
+        const path = doc.path() || name;
+        const hasPath = !!doc.path();
+
+        if (!addedDocs.has(path)) {
+          items.push({
+            title: name,
+            subtitle: path,
+            quicklookurl: (hasPath ? path : null),
+            match: `${name} ${path.replace(
+              /[^A-Za-z0-9]/g,
+              " ",
+            )}`,
+            icon: { path: 'icon.png' },
+            arg: `${win.id()}`,
+            mods: {
+              alt: {
+                valid: true,
+                arg: `${win.id()}`,
+                subtitle: `Close ${name}${doc.modified() ? " (Edited)" : ""}`,
+              },
+              cmd: {
+                valid: hasPath,
+                arg: path,
+                subtitle: (hasPath ? 'Reveal file in Finder' : ''),
+              },
             },
-            cmd: {
-              valid: hasPath,
-              arg: path,
-              subtitle: (hasPath ? 'Reveal file in Finder' : ''),
+            variables: {
+              isOpen: true,
             },
-          },
-          variables: {
-            isOpen: true,
-          },
-        });
-        addedDocs.add(path);
+          });
+          addedDocs.add(path);
 
-        if (!listOnlyOpenDocs && hasPath) {
-          const dir = $.NSString.alloc.initWithUTF8String(path).stringByDeletingLastPathComponent.js + '/';
-          if (!addedDirs.has(dir)) {
-            dirs.push(dir);
-            addedDirs.add(dir);
+          if (!listOnlyOpenDocs && hasPath) {
+            const dir = $.NSString.alloc.initWithUTF8String(path).stringByDeletingLastPathComponent.js + '/';
+            if (!addedDirs.has(dir)) {
+              dirs.push(dir);
+              addedDirs.add(dir);
+            }
           }
         }
       }
@@ -122,7 +119,7 @@ function run() {
   for (let i = mruDirList.list.length - 1; i >= 0; i--) {
     const dir = mruDirList.list[i];
     if (!addedDirs.has(dir)) {
-      dirs.unshift(dir);
+      dirs.push(dir);
       addedDirs.add(dir);
     }
   }
@@ -131,7 +128,7 @@ function run() {
   if (!listOnlyOpenDocs) {
     const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
-    for (let i = 0; i < dirs.length; i++) {
+    for (let i = dirs.length - 1; i >= 0; i--) {
       const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
       mruDirList.add(dir);
       if (!processedDirs.has(dir)) {
