@@ -84,7 +84,7 @@ function run() {
               /[^A-Za-z0-9]/g,
               " ",
             )}`,
-            icon: { path: 'icon.png' },
+            icon: { path: doc.modified() ? 'icon_accented.png' : 'icon.png' },
             arg: `${win.id()}`,
             mods: {
               alt: {
