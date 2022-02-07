@@ -89,6 +89,11 @@ function run() {
             )}`,
             icon: { path: doc.modified() ? 'icon_accented.png' : 'icon.png' },
             arg: `${win.id()},${path}`,
+            action: (hasPath ? {
+              file: path,
+            } : {
+              text: name,
+            }),
             mods: {
               alt: {
                 valid: true,
@@ -161,6 +166,9 @@ function run() {
             )}`,
             icon: { path: 'icon_dimmed.png' },
             arg: path,
+            action: {
+              file: path,
+            },
             mods: {
               cmd: {
                 valid: true,
