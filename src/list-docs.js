@@ -45,7 +45,7 @@ function run() {
     });
   } else {
     const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
-    if (!openDocsCache || (currTimestamp - openDocsCache['timestamp'] > 1000)) {
+    if (!openDocsCache || (currTimestamp - openDocsCache['timestamp'] > 250)) {
       needRerunning = true;
       asyncUpdateDocListCache();
     }
@@ -60,7 +60,7 @@ function run() {
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
   if (!listOnlyOpenDocs) {
     const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
-    if (!docsFromDiskCache || (currTimestamp - docsFromDiskCache['timestamp'] > 1000)) {
+    if (!docsFromDiskCache || (currTimestamp - docsFromDiskCache['timestamp'] > 250)) {
       needRerunning = true;
       if (!app.running()) {
         asyncUpdateDocListCache();
