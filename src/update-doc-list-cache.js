@@ -154,7 +154,7 @@ function run() {
       if (!processedDirs.has(dir)) {
         const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/*.md" || ls *.md`).split('\r');
         for (let d = 0; d < mdFiles.length; d++) {
-          const name = mdFiles[d].split('/').pop();
+          const name = $(mdFiles[d]).lastPathComponent.js;
           const path = dir + '/' + mdFiles[d];
           docsFromDisk.push({
             title: name,
