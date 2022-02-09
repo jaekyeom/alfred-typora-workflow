@@ -1,7 +1,6 @@
 # Alfred Typora Workflow
 
-Alfred workflow for querying and opening/closing [Typora](https://typora.io/) documents.  
-It automatically searches the Git repositories or directories for markdown files, by default.
+Alfred workflow for [Typora](https://typora.io/).  
 
 <p align="center">
 <img alt="Typora workflow screenshot" src="./screenshot.png" width="70%" />
@@ -13,10 +12,19 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ## Usage
 
-- `ty {query}`: Query Typora documents.
+### Querying documents
+
+- `ty {query}`: Query Typora documents. It automatically searches the Git repositories or directories for markdown files, [by default](#configurations).
   - `↩`: Open/activate the selected document.
   - `⌥ + ↩`: Close the selected document (if it's open).
   - `⌘ + ↩`: Reveal file in Finder.
+
+### Copying relative markdown links to any files/directories
+
+- (Universal) [File Action](https://www.alfredapp.com/blog/tips-and-tricks/file-actions-from-alfred-or-finder/) `Copy relative links for Typora`: Copy markdown link(s) to the given file/directory path(s) relative to Typora's *active* document.
+  - One simple use case is pressing `⌘ + ⌥ + \` in Finder and invoking this File Action.
+  - It escapes paths and names according to the markdown syntax.
+  - It is especially useful for copying links to files that Typora doesn't support the drag-and-drop link insertion from Finder, such as `.docx`, `.tex`, and `.md` files.
 
 ## Configurations
 

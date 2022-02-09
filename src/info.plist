@@ -8,11 +8,37 @@
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
+		<key>062838FA-C871-4853-B526-60BAB97AC543</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8A99F144-32E0-4D8B-8916-F8CB89CD6243</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>A3104666-2863-4F8D-A35A-CDAC567E7966</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>1EC2FFB0-C897-4A6A-8822-541B205550AE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DAF312A6-04FE-4751-9A51-D569082E4804</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -119,6 +145,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>DAF312A6-04FE-4751-9A51-D569082E4804</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>062838FA-C871-4853-B526-60BAB97AC543</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<array>
 			<dict>
@@ -136,7 +175,7 @@
 	<key>createdby</key>
 	<string>Jaekyeom Kim</string>
 	<key>description</key>
-	<string>Search Typora documents</string>
+	<string>Workflow for Typora</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -243,6 +282,8 @@
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string>list-tabs</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
@@ -493,27 +534,134 @@ fi</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<integer>1</integer>
+				<key>filetypes</key>
+				<array/>
+				<key>name</key>
+				<string>Copy relative links for Typora</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>1EC2FFB0-C897-4A6A-8822-541B205550AE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>./get-markdown-links-to-files.js "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DAF312A6-04FE-4751-9A51-D569082E4804</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Copied markdown link(s) to file(s)!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>8A99F144-32E0-4D8B-8916-F8CB89CD6243</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>062838FA-C871-4853-B526-60BAB97AC543</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>https://github.com/jaekyeom/alfred-typora-workflow
 
-Usage
-- `ty {query}`: Query Typora documents.
+## Usage
+
+### Querying documents
+
+- `ty {query}`: Query Typora documents. It automatically searches the Git repositories or directories for markdown files, [by default](#configurations).
   - `↩`: Open/activate the selected document.
   - `⌥ + ↩`: Close the selected document (if it's open).
   - `⌘ + ↩`: Reveal file in Finder.
 
-Configurations
+### Copying relative markdown links to any files/directories
+
+- (Universal) [File Action](https://www.alfredapp.com/blog/tips-and-tricks/file-actions-from-alfred-or-finder/) `Copy relative links for Typora`: Copy markdown link(s) to the given file/directory path(s) relative to Typora's *active* document.
+  - One simple use case is pressing `⌘ + ⌥ + \` in Finder and invoking this File Action.
+  - It escapes paths and names according to the markdown syntax.
+  - It is especially useful for copying links to files that Typora doesn't support the drag-and-drop link insertion from Finder, such as `.docx`, `.tex`, and `.md` files.
+
+## Configurations
+
 - `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.</string>
 	<key>uidata</key>
 	<dict>
+		<key>062838FA-C871-4853-B526-60BAB97AC543</key>
+		<dict>
+			<key>xpos</key>
+			<integer>530</integer>
+			<key>ypos</key>
+			<integer>520</integer>
+		</dict>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
 		<dict>
 			<key>xpos</key>
 			<integer>40</integer>
 			<key>ypos</key>
 			<integer>115</integer>
+		</dict>
+		<key>1EC2FFB0-C897-4A6A-8822-541B205550AE</key>
+		<dict>
+			<key>note</key>
+			<string>Copy the links to the files relative to Typora's active document, in the markdown format.</string>
+			<key>xpos</key>
+			<integer>185</integer>
+			<key>ypos</key>
+			<integer>520</integer>
 		</dict>
 		<key>28F7DE97-5ED2-4148-B59F-126E67492DC9</key>
 		<dict>
@@ -539,6 +687,13 @@ Configurations
 			<integer>530</integer>
 			<key>ypos</key>
 			<integer>105</integer>
+		</dict>
+		<key>8A99F144-32E0-4D8B-8916-F8CB89CD6243</key>
+		<dict>
+			<key>xpos</key>
+			<integer>680</integer>
+			<key>ypos</key>
+			<integer>520</integer>
 		</dict>
 		<key>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</key>
 		<dict>
@@ -574,6 +729,13 @@ Configurations
 			<integer>365</integer>
 			<key>ypos</key>
 			<integer>375</integer>
+		</dict>
+		<key>DAF312A6-04FE-4751-9A51-D569082E4804</key>
+		<dict>
+			<key>xpos</key>
+			<integer>365</integer>
+			<key>ypos</key>
+			<integer>520</integer>
 		</dict>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<dict>
