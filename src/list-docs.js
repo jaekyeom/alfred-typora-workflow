@@ -23,6 +23,11 @@ const asyncUpdateDocListCache = function() {
   $.system("nohup ./update-doc-list-cache.js > /dev/null &");
 };
 
+const getExtension = function(name) {
+  const splitted = name.split('.');
+  return splitted.length >= 2 ? '.' + splitted.pop() : null;
+};
+
 const constructOpenDocItem = function(rawItem) {
   const name = rawItem['name'];
   // Untitled documents have no paths.
@@ -32,7 +37,7 @@ const constructOpenDocItem = function(rawItem) {
     title: name,
     subtitle: path,
     quicklookurl: (hasPath ? path : null),
-    match: `${name} ${path.replace(
+    match: `${getExtension(name) || '.md'} ${name} ${path.replace(
       /[^A-Za-z0-9]/g,
       " ",
     )}`,
@@ -68,7 +73,7 @@ const constructDocFromDiskItem = function(rawItem) {
     title: name,
     subtitle: path,
     quicklookurl: path,
-    match: `${name} ${path.replace(
+    match: `${getExtension(name) || ''} ${name} ${path.replace(
       /[^A-Za-z0-9]/g,
       " ",
     )}`,
