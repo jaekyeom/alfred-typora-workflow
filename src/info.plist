@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -8,6 +7,19 @@
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
+		<key>03FA9BEF-983A-4C4C-B2A2-D4870B876110</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>062838FA-C871-4853-B526-60BAB97AC543</key>
 		<array>
 			<dict>
@@ -26,6 +38,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>A3104666-2863-4F8D-A35A-CDAC567E7966</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>1D691548-8E9B-4AF7-B201-92E19A24C93D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A7B25714-FB21-4CBE-A5EB-5255A8134AB5</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -112,7 +137,63 @@
 				<false/>
 			</dict>
 		</array>
+		<key>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>03FA9BEF-983A-4C4C-B2A2-D4870B876110</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>342DB1B6-492B-4C31-84DE-85DF037E6CA0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>28F7DE97-5ED2-4148-B59F-126E67492DC9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>A7B25714-FB21-4CBE-A5EB-5255A8134AB5</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -146,13 +227,13 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</string>
+				<string>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</string>
 				<key>modifiers</key>
 				<integer>524288</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
 		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
@@ -223,29 +304,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>68</integer>
-				<key>script</key>
-				<string>./focus-doc.js "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>7B200672-2C74-4474-96C9-99BC42F29DBE</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -302,13 +360,11 @@
 				<key>runningsubtext</key>
 				<string>Loading Typora documents...</string>
 				<key>script</key>
-				<string>./list-docs.js</string>
+				<string>./list-docs.js 1</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string>list-tabs</string>
-				<key>skipuniversalaction</key>
-				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
@@ -328,6 +384,98 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>./focus-doc.js "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7B200672-2C74-4474-96C9-99BC42F29DBE</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<true/>
+				<key>variables</key>
+				<dict>
+					<key>start_keyword</key>
+					<string>ty</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>03FA9BEF-983A-4C4C-B2A2-D4870B876110</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>ty*</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading Typora documents and other files from the same directories...</string>
+				<key>script</key>
+				<string>./list-docs.js 0</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>list-tabs</string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Typora documents and other files</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A7B25714-FB21-4CBE-A5EB-5255A8134AB5</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>openwith</key>
 				<string>/Applications/Typora.app</string>
 				<key>sourcefile</key>
@@ -339,6 +487,37 @@
 			<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>hotstring</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>1D691548-8E9B-4AF7-B201-92E19A24C93D</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -464,6 +643,26 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>passthroughargument</key>
+				<true/>
+				<key>variables</key>
+				<dict>
+					<key>start_keyword</key>
+					<string>ty*</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -533,7 +732,7 @@ fi</string>
 			<key>config</key>
 			<dict>
 				<key>argument</key>
-				<string>ty </string>
+				<string>{var:start_keyword} </string>
 				<key>leftcursor</key>
 				<false/>
 			</dict>
@@ -607,6 +806,27 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Copied markdown link(s) to file(s)!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>8A99F144-32E0-4D8B-8916-F8CB89CD6243</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>acceptsmulti</key>
 				<integer>1</integer>
 				<key>filetypes</key>
@@ -647,27 +867,6 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Copied markdown link(s) to file(s)!</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>8A99F144-32E0-4D8B-8916-F8CB89CD6243</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>autopaste</key>
 				<false/>
 				<key>clipboardtext</key>
@@ -692,8 +891,10 @@ fi</string>
 
 ### Querying documents
 
-- `ty {query}`: Query Typora documents. It automatically searches the Git repositories or directories for markdown files, [by default](#configurations).
-  - `↩`: Open/activate the selected document.
+- `ty {query}`: Query Typora documents. It automatically searches the parent Git repositories or directories for markdown files.
+- `ty* {query}`: Query Typora documents and all types of files from the parent Git repositories or directories, *regardless of `LIST_ONLY_OPEN_DOCS`*.
+- User actions
+  - `↩`: Open/activate the selected document or file.
   - `⌥ + ↩`: Close the selected document (if it's open).
   - `⌘ + ↩`: Reveal file in Finder.
 
@@ -706,33 +907,46 @@ fi</string>
 
 ## Configurations
 
-- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
-- `LIST_ONLY_MARKDOWN_FILES`: If set to 0, it queries all types of files from the parent Git repositories or directories. If set to 1 (default), it only queries markdown files.
+- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), `ty` queries open documents and markdown files from the parent Git repositories or directories. If set to 1, `ty` only queries open documents.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.</string>
 	<key>uidata</key>
 	<dict>
+		<key>03FA9BEF-983A-4C4C-B2A2-D4870B876110</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>110</integer>
+		</dict>
 		<key>062838FA-C871-4853-B526-60BAB97AC543</key>
 		<dict>
 			<key>xpos</key>
-			<integer>530</integer>
+			<integer>595</integer>
 			<key>ypos</key>
-			<integer>520</integer>
+			<integer>535</integer>
 		</dict>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<integer>10</integer>
 			<key>ypos</key>
-			<integer>115</integer>
+			<integer>10</integer>
+		</dict>
+		<key>1D691548-8E9B-4AF7-B201-92E19A24C93D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>130</integer>
 		</dict>
 		<key>1EC2FFB0-C897-4A6A-8822-541B205550AE</key>
 		<dict>
 			<key>note</key>
 			<string>Copy the links to the files relative to Typora's active document, in the markdown format.</string>
 			<key>xpos</key>
-			<integer>185</integer>
+			<integer>250</integer>
 			<key>ypos</key>
-			<integer>520</integer>
+			<integer>535</integer>
 		</dict>
 		<key>28F7DE97-5ED2-4148-B59F-126E67492DC9</key>
 		<dict>
@@ -741,106 +955,118 @@ fi</string>
 			<key>note</key>
 			<string>OneUpdater</string>
 			<key>xpos</key>
-			<integer>365</integer>
+			<integer>565</integer>
 			<key>ypos</key>
 			<integer>210</integer>
 		</dict>
 		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>530</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>235</integer>
 		</dict>
 		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<integer>565</integer>
 			<key>ypos</key>
 			<integer>135</integer>
 		</dict>
 		<key>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</key>
 		<dict>
 			<key>xpos</key>
-			<integer>680</integer>
+			<integer>880</integer>
 			<key>ypos</key>
 			<integer>250</integer>
 		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>530</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>105</integer>
 		</dict>
 		<key>8A99F144-32E0-4D8B-8916-F8CB89CD6243</key>
 		<dict>
 			<key>xpos</key>
-			<integer>680</integer>
+			<integer>745</integer>
 			<key>ypos</key>
-			<integer>520</integer>
+			<integer>535</integer>
 		</dict>
 		<key>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<integer>565</integer>
 			<key>ypos</key>
 			<integer>10</integer>
 		</dict>
 		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>680</integer>
+			<integer>880</integer>
 			<key>ypos</key>
 			<integer>365</integer>
+		</dict>
+		<key>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>230</integer>
 		</dict>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<dict>
 			<key>xpos</key>
-			<integer>185</integer>
+			<integer>155</integer>
 			<key>ypos</key>
-			<integer>115</integer>
+			<integer>10</integer>
+		</dict>
+		<key>A7B25714-FB21-4CBE-A5EB-5255A8134AB5</key>
+		<dict>
+			<key>xpos</key>
+			<integer>155</integer>
+			<key>ypos</key>
+			<integer>130</integer>
 		</dict>
 		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>680</integer>
+			<integer>880</integer>
 			<key>ypos</key>
 			<integer>130</integer>
 		</dict>
 		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<integer>565</integer>
 			<key>ypos</key>
 			<integer>375</integer>
 		</dict>
 		<key>DAF312A6-04FE-4751-9A51-D569082E4804</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<integer>430</integer>
 			<key>ypos</key>
-			<integer>520</integer>
+			<integer>535</integer>
 		</dict>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<dict>
 			<key>xpos</key>
-			<integer>530</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>345</integer>
 		</dict>
 		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
 		<dict>
 			<key>xpos</key>
-			<integer>810</integer>
+			<integer>1010</integer>
 			<key>ypos</key>
 			<integer>360</integer>
 		</dict>
 	</dict>
 	<key>variables</key>
 	<dict>
-		<key>LIST_ONLY_MARKDOWN_FILES</key>
-		<string>1</string>
 		<key>LIST_ONLY_OPEN_DOCS</key>
 		<string>0</string>
 		<key>NUM_RECENT_DIRS</key>

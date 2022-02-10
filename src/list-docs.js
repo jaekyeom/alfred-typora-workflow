@@ -100,11 +100,12 @@ const constructDocFromDiskItem = function(rawItem) {
   };
 };
 
-function run() {
+function run(args) {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
 
   const app = Application("Typora");
+  const workflowVersion = $.getenv('alfred_workflow_version');
   const alfredWorkflowCachePath = $($.getenv('alfred_workflow_cache')).stringByStandardizingPath.js;
 
   const currTimestamp = Date.now();
@@ -128,7 +129,7 @@ function run() {
   } else {
     const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
     if (!openDocsCache ||
-        openDocsCache['version'] != 2 ||
+        openDocsCache['version'] != workflowVersion ||
         !initialRunTimestamp ||
         initialRunTimestamp > openDocsCache['timestamp']) {
       needRerunning = true;
@@ -145,11 +146,11 @@ function run() {
   }
 
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
-  const listOnlyMarkdownFiles = parseInt($.getenv('LIST_ONLY_MARKDOWN_FILES'));
-  if (!listOnlyOpenDocs) {
+  const listOnlyMarkdownFiles = parseInt(args[0]);
+  if (!listOnlyOpenDocs || !listOnlyMarkdownFiles) {
     const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
     if (!docsFromDiskCache ||
-        docsFromDiskCache['version'] != 2 ||
+        docsFromDiskCache['version'] != workflowVersion ||
         !initialRunTimestamp ||
         initialRunTimestamp > docsFromDiskCache['timestamp']) {
       needRerunning = true;
@@ -158,13 +159,21 @@ function run() {
       }
     }
     if (docsFromDiskCache) {
-      items.push(...(docsFromDiskCache['markdownDocsFromDiskRaw'].filter(function(e) {
+      items.push(...(docsFromDiskCache['docsFromDiskRaw'].filter(function(e) {
         return !addedDocs.has(e['path']);
       }).map(constructDocFromDiskItem)));
-      if (!listOnlyMarkdownFiles) {
-        items.push(...(docsFromDiskCache['otherFilesFromDiskRaw'].filter(function(e) {
-          return !addedDocs.has(e['path']);
-        }).map(constructDocFromDiskItem)));
+    }
+
+    if (!listOnlyMarkdownFiles) {
+      const otherFilesFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/other_files_from_disk_cache.json');
+      if (!otherFilesFromDiskCache ||
+          otherFilesFromDiskCache['version'] != workflowVersion ||
+          !initialRunTimestamp ||
+          initialRunTimestamp > otherFilesFromDiskCache['timestamp']) {
+        needRerunning = true;
+      }
+      if (otherFilesFromDiskCache) {
+        items.push(...(otherFilesFromDiskCache['otherFilesFromDiskRaw'].map(constructDocFromDiskItem)));
       }
     }
   }

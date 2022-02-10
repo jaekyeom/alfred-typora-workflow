@@ -57,9 +57,8 @@ function run() {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
 
+  const workflowVersion = $.getenv('alfred_workflow_version');
   const alfredWorkflowCachePath = $($.getenv('alfred_workflow_cache')).stringByStandardizingPath.js;
-
-  const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
 
   const openDocsRaw = [];
   const dirs = [];
@@ -87,7 +86,7 @@ function run() {
           });
           addedDocs.add(path);
 
-          if (!listOnlyOpenDocs && hasPath) {
+          if (hasPath) {
             const dir = $.NSString.alloc.initWithUTF8String(path).stringByDeletingLastPathComponent.js + '/';
             if (!addedDirs.has(dir)) {
               dirs.push(dir);
@@ -101,11 +100,10 @@ function run() {
 
   writeJSONToFile({
     timestamp: Date.now(),
-    version: 2,
+    version: workflowVersion,
     openDocsRaw: openDocsRaw,
   }, alfredWorkflowCachePath + '/open_docs_cache.json');
 
-  const filePattern = parseInt($.getenv('LIST_ONLY_MARKDOWN_FILES')) ? '*.md' : '*';
   const numRecentDirs = parseInt($.getenv('NUM_RECENT_DIRS'));
   const alfredWorkflowDataPath = $($.getenv('alfred_workflow_data')).stringByStandardizingPath.js;
   const dataPath = alfredWorkflowDataPath + '/data.json';
@@ -120,38 +118,70 @@ function run() {
     }
   }
 
-  if (!listOnlyOpenDocs) {
-    const markdownDocsFromDiskRaw = [];
-    const otherFilesFromDiskRaw = [];
-    const processedDirs = new Set();
+  {
     const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
-    for (let i = dirs.length - 1; i >= 0; i--) {
-      const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
-      mruDirList.add(dir);
-      if (!processedDirs.has(dir)) {
-        const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/${filePattern}" || find . -name "${filePattern}" -maxdepth 1 -type f -exec basename {} ';'`).split('\r');
-        for (let d = 0; d < mdFiles.length; d++) {
-          const name = $(mdFiles[d]).lastPathComponent.js;
-          const path = dir + '/' + mdFiles[d];
-          (name.endsWith('.md') ? markdownDocsFromDiskRaw : otherFilesFromDiskRaw).push({
-            name: name,
-            path: path,
-          });
+    const markdownFiles = new Set();
+    {
+      const docsFromDiskRaw = [];
+      const processedDirs = new Set();
+      for (let i = dirs.length - 1; i >= 0; i--) {
+        const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
+        mruDirList.add(dir);
+        if (!processedDirs.has(dir)) {
+          const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/*.md" || find . -name "*.md" -maxdepth 1 -type f -exec basename {} ';'`).split('\r');
+          for (let d = 0; d < mdFiles.length; d++) {
+            const name = $(mdFiles[d]).lastPathComponent.js;
+            const path = dir + '/' + mdFiles[d];
+            docsFromDiskRaw.push({
+              name: name,
+              path: path,
+            });
+            markdownFiles.add(path);
+          }
+          processedDirs.add(dir);
         }
-        processedDirs.add(dir);
       }
+
+      writeJSONToFile({
+        timestamp: Date.now(),
+        version: workflowVersion,
+        docsFromDiskRaw: docsFromDiskRaw,
+      }, alfredWorkflowCachePath + '/docs_from_disk_cache.json');
     }
 
-    writeJSONToFile({
-      timestamp: Date.now(),
-      version: 2,
-      markdownDocsFromDiskRaw: markdownDocsFromDiskRaw,
-      otherFilesFromDiskRaw: otherFilesFromDiskRaw,
-    }, alfredWorkflowCachePath + '/docs_from_disk_cache.json');
+    {
+      const otherFilesFromDiskRaw = [];
+      const processedDirs = new Set();
+      for (let i = dirs.length - 1; i >= 0; i--) {
+        const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
+        if (!processedDirs.has(dir)) {
+          const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/*" || find . -name "*" -maxdepth 1 -type f -exec basename {} ';'`).split('\r');
+          for (let d = 0; d < mdFiles.length; d++) {
+            const name = $(mdFiles[d]).lastPathComponent.js;
+            const path = dir + '/' + mdFiles[d];
+            if (!markdownFiles.has(path)) {
+              otherFilesFromDiskRaw.push({
+                name: name,
+                path: path,
+              });
+            }
+          }
+          processedDirs.add(dir);
+        }
+      }
+
+      writeJSONToFile({
+        timestamp: Date.now(),
+        version: workflowVersion,
+        otherFilesFromDiskRaw: otherFilesFromDiskRaw,
+      }, alfredWorkflowCachePath + '/other_files_from_disk_cache.json');
+    }
   }
 
   writeJSONToFile({
+    timestamp: Date.now(),
+    version: workflowVersion,
     mruDirList: mruDirList.list,
   }, dataPath);
 }

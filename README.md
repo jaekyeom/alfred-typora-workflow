@@ -14,8 +14,10 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ### Querying documents
 
-- `ty {query}`: Query Typora documents. It automatically searches the Git repositories or directories for markdown files, [by default](#configurations).
-  - `↩`: Open/activate the selected document.
+- `ty {query}`: Query Typora documents. It automatically searches the parent Git repositories or directories for markdown files.
+- `ty* {query}`: Query Typora documents and all types of files from the parent Git repositories or directories, *regardless of `LIST_ONLY_OPEN_DOCS`*.
+- User actions
+  - `↩`: Open/activate the selected document or file.
   - `⌥ + ↩`: Close the selected document (if it's open).
   - `⌘ + ↩`: Reveal file in Finder.
 
@@ -28,8 +30,7 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 ## Configurations
 
-- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
-- `LIST_ONLY_MARKDOWN_FILES`: If set to 0, it queries all types of files from the parent Git repositories or directories. If set to 1 (default), it only queries markdown files.
+- `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), `ty` queries open documents and markdown files from the parent Git repositories or directories. If set to 1, `ty` only queries open documents.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.
 
 ## Credits
