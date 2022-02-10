@@ -23,6 +23,78 @@ const asyncUpdateDocListCache = function() {
   $.system("nohup ./update-doc-list-cache.js > /dev/null &");
 };
 
+const constructOpenDocItem = function(rawItem) {
+  const name = rawItem['name'];
+  // Untitled documents have no paths.
+  const path = rawItem['path'] || rawItem['name'];
+  const hasPath = !!rawItem['path'];
+  return {
+    title: name,
+    subtitle: path,
+    quicklookurl: (hasPath ? path : null),
+    match: `${name} ${path.replace(
+      /[^A-Za-z0-9]/g,
+      " ",
+    )}`,
+    icon: { path: rawItem['modified'] ? 'icon_accented.png' : 'icon.png' },
+    arg: `${rawItem['windowId']},${path}`,
+    action: (hasPath ? {
+      file: path,
+    } : {
+      text: name,
+    }),
+    mods: {
+      alt: {
+        valid: true,
+        arg: `${rawItem['windowId']},${path}`,
+        subtitle: `Close ${name}${rawItem['modified'] ? " (Edited)" : ""}`,
+      },
+      cmd: {
+        valid: hasPath,
+        arg: path,
+        subtitle: (hasPath ? 'Reveal file in Finder' : ''),
+      },
+    },
+    variables: {
+      isOpen: true,
+    },
+  };
+};
+
+const constructDocFromDiskItem = function(rawItem) {
+  const name = rawItem['name'];
+  const path = rawItem['path'];
+  return {
+    title: name,
+    subtitle: path,
+    quicklookurl: path,
+    match: `${name} ${path.replace(
+      /[^A-Za-z0-9]/g,
+      " ",
+    )}`,
+    icon: (name.endsWith('.md') ? {
+      path: 'icon_dimmed.png',
+    } : {
+      type: 'fileicon',
+      path: path,
+    }),
+    arg: path,
+    action: {
+      file: path,
+    },
+    mods: {
+      cmd: {
+        valid: true,
+        arg: path,
+        subtitle: `Reveal file in Finder`,
+      },
+    },
+    variables: {
+      isOpen: false,
+    },
+  };
+};
+
 function run() {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
@@ -50,33 +122,45 @@ function run() {
     });
   } else {
     const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
-    if (!openDocsCache || !initialRunTimestamp || initialRunTimestamp > openDocsCache['timestamp']) {
+    if (!openDocsCache ||
+        openDocsCache['version'] != 2 ||
+        !initialRunTimestamp ||
+        initialRunTimestamp > openDocsCache['timestamp']) {
       needRerunning = true;
       if (!initialRunTimestamp) {
         asyncUpdateDocListCache();
       }
     }
     if (openDocsCache) {
-      items = openDocsCache['openDocs'];
-      items.forEach(function(e) {
-        addedDocs.add(e['subtitle']);
+      openDocsCache['openDocsRaw'].forEach(function(e) {
+        addedDocs.add(e['path'] || e['name']);
       });
+      items = openDocsCache['openDocsRaw'].map(constructOpenDocItem);
     }
   }
 
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
+  const listOnlyMarkdownFiles = parseInt($.getenv('LIST_ONLY_MARKDOWN_FILES'));
   if (!listOnlyOpenDocs) {
     const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
-    if (!docsFromDiskCache || !initialRunTimestamp || initialRunTimestamp > docsFromDiskCache['timestamp']) {
+    if (!docsFromDiskCache ||
+        docsFromDiskCache['version'] != 2 ||
+        !initialRunTimestamp ||
+        initialRunTimestamp > docsFromDiskCache['timestamp']) {
       needRerunning = true;
       if (!initialRunTimestamp && !app.running()) {
         asyncUpdateDocListCache();
       }
     }
     if (docsFromDiskCache) {
-      items.push(...(docsFromDiskCache['docsFromDisk'].filter(function(e) {
-        return !addedDocs.has(e['subtitle']);
-      })));
+      items.push(...(docsFromDiskCache['markdownDocsFromDiskRaw'].filter(function(e) {
+        return !addedDocs.has(e['path']);
+      }).map(constructDocFromDiskItem)));
+      if (!listOnlyMarkdownFiles) {
+        items.push(...(docsFromDiskCache['otherFilesFromDiskRaw'].filter(function(e) {
+          return !addedDocs.has(e['path']);
+        }).map(constructDocFromDiskItem)));
+      }
     }
   }
 

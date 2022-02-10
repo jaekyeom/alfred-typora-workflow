@@ -61,7 +61,7 @@ function run() {
 
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
 
-  const openDocs = [];
+  const openDocsRaw = [];
   const dirs = [];
   const addedDirs = new Set();
 
@@ -79,36 +79,11 @@ function run() {
         const hasPath = !!doc.path();
 
         if (!addedDocs.has(path)) {
-          openDocs.push({
-            title: name,
-            subtitle: path,
-            quicklookurl: (hasPath ? path : null),
-            match: `${name} ${path.replace(
-              /[^A-Za-z0-9]/g,
-              " ",
-            )}`,
-            icon: { path: doc.modified() ? 'icon_accented.png' : 'icon.png' },
-            arg: `${win.id()},${path}`,
-            action: (hasPath ? {
-              file: path,
-            } : {
-              text: name,
-            }),
-            mods: {
-              alt: {
-                valid: true,
-                arg: `${win.id()},${path}`,
-                subtitle: `Close ${name}${doc.modified() ? " (Edited)" : ""}`,
-              },
-              cmd: {
-                valid: hasPath,
-                arg: path,
-                subtitle: (hasPath ? 'Reveal file in Finder' : ''),
-              },
-            },
-            variables: {
-              isOpen: true,
-            },
+          openDocsRaw.push({
+            windowId: win.id(),
+            name: doc.name(),
+            path: doc.path(),
+            modified: doc.modified(),
           });
           addedDocs.add(path);
 
@@ -126,8 +101,8 @@ function run() {
 
   writeJSONToFile({
     timestamp: Date.now(),
-    version: 1,
-    openDocs: openDocs,
+    version: 2,
+    openDocsRaw: openDocsRaw,
   }, alfredWorkflowCachePath + '/open_docs_cache.json');
 
   const filePattern = parseInt($.getenv('LIST_ONLY_MARKDOWN_FILES')) ? '*.md' : '*';
@@ -146,8 +121,8 @@ function run() {
   }
 
   if (!listOnlyOpenDocs) {
-    const markdownDocsFromDisk = [];
-    const otherFilesFromDisk = [];
+    const markdownDocsFromDiskRaw = [];
+    const otherFilesFromDiskRaw = [];
     const processedDirs = new Set();
     const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
@@ -159,34 +134,9 @@ function run() {
         for (let d = 0; d < mdFiles.length; d++) {
           const name = $(mdFiles[d]).lastPathComponent.js;
           const path = dir + '/' + mdFiles[d];
-          (name.endsWith('.md') ? markdownDocsFromDisk : otherFilesFromDisk).push({
-            title: name,
-            subtitle: path,
-            quicklookurl: path,
-            match: `${name} ${path.replace(
-              /[^A-Za-z0-9]/g,
-              " ",
-            )}`,
-            icon: (name.endsWith('.md') ? {
-              path: 'icon_dimmed.png',
-            } : {
-              type: 'fileicon',
-              path: path,
-            }),
-            arg: path,
-            action: {
-              file: path,
-            },
-            mods: {
-              cmd: {
-                valid: true,
-                arg: path,
-                subtitle: `Reveal file in Finder`,
-              },
-            },
-            variables: {
-              isOpen: false,
-            },
+          (name.endsWith('.md') ? markdownDocsFromDiskRaw : otherFilesFromDiskRaw).push({
+            name: name,
+            path: path,
           });
         }
         processedDirs.add(dir);
@@ -195,8 +145,9 @@ function run() {
 
     writeJSONToFile({
       timestamp: Date.now(),
-      version: 1,
-      docsFromDisk: markdownDocsFromDisk.concat(otherFilesFromDisk),
+      version: 2,
+      markdownDocsFromDiskRaw: markdownDocsFromDiskRaw,
+      otherFilesFromDiskRaw: otherFilesFromDiskRaw,
     }, alfredWorkflowCachePath + '/docs_from_disk_cache.json');
   }
 
