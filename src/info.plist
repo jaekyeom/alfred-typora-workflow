@@ -47,6 +47,31 @@
 				<false/>
 			</dict>
 		</array>
+		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>A34F6C8F-CF41-40A6-A587-51A5DACA8F96</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
 		<array>
 			<dict>
@@ -63,7 +88,7 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+				<string>2E680974-10A0-46F4-880D-831D7A5082D1</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -303,6 +328,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>openwith</key>
+				<string>/Applications/Typora.app</string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -424,15 +464,45 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string></string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>4</integer>
+						<key>matchstring</key>
+						<string>.*[.]md$</string>
+						<key>outputlabel</key>
+						<string>openWithTypora</string>
+						<key>uid</key>
+						<string>A34F6C8F-CF41-40A6-A587-51A5DACA8F96</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>openGeneral</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>2E680974-10A0-46F4-880D-831D7A5082D1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>openwith</key>
-				<string>/Applications/Typora.app</string>
+				<string></string>
 				<key>sourcefile</key>
 				<string></string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openfile</string>
 			<key>uid</key>
-			<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
+			<string>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -637,6 +707,7 @@ fi</string>
 ## Configurations
 
 - `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
+- `LIST_ONLY_MARKDOWN_FILES`: If set to 0, it queries all types of files from the parent Git repositories or directories. If set to 1 (default), it only queries markdown files.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.</string>
 	<key>uidata</key>
 	<dict>
@@ -674,12 +745,26 @@ fi</string>
 			<key>ypos</key>
 			<integer>210</integer>
 		</dict>
+		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>530</integer>
+			<key>ypos</key>
+			<integer>235</integer>
+		</dict>
 		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
 		<dict>
 			<key>xpos</key>
 			<integer>365</integer>
 			<key>ypos</key>
 			<integer>135</integer>
+		</dict>
+		<key>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>680</integer>
+			<key>ypos</key>
+			<integer>250</integer>
 		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
@@ -719,9 +804,9 @@ fi</string>
 		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>530</integer>
+			<integer>680</integer>
 			<key>ypos</key>
-			<integer>225</integer>
+			<integer>130</integer>
 		</dict>
 		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<dict>
@@ -754,6 +839,8 @@ fi</string>
 	</dict>
 	<key>variables</key>
 	<dict>
+		<key>LIST_ONLY_MARKDOWN_FILES</key>
+		<string>1</string>
 		<key>LIST_ONLY_OPEN_DOCS</key>
 		<string>0</string>
 		<key>NUM_RECENT_DIRS</key>

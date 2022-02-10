@@ -29,6 +29,7 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 ## Configurations
 
 - `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), it queries open documents and markdown files from the parent Git repositories or directories. If set to 1, it only queries open documents.
+- `LIST_ONLY_MARKDOWN_FILES`: If set to 0, it queries all types of files from the parent Git repositories or directories. If set to 1 (default), it only queries markdown files.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.
 
 ## Credits

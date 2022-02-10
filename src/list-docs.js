@@ -31,6 +31,11 @@ function run() {
   const alfredWorkflowCachePath = $($.getenv('alfred_workflow_cache')).stringByStandardizingPath.js;
 
   const currTimestamp = Date.now();
+  let initialRunTimestamp = null;
+  try {
+    initialRunTimestamp = parseInt($.getenv('initialRunTimestamp'));
+  } catch (e) {
+  }
   let needRerunning = false;
   let items = [];
   const addedDocs = new Set();
@@ -45,9 +50,11 @@ function run() {
     });
   } else {
     const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
-    if (!openDocsCache || (currTimestamp - openDocsCache['timestamp'] > 250)) {
+    if (!openDocsCache || !initialRunTimestamp || initialRunTimestamp > openDocsCache['timestamp']) {
       needRerunning = true;
-      asyncUpdateDocListCache();
+      if (!initialRunTimestamp) {
+        asyncUpdateDocListCache();
+      }
     }
     if (openDocsCache) {
       items = openDocsCache['openDocs'];
@@ -60,9 +67,9 @@ function run() {
   const listOnlyOpenDocs = parseInt($.getenv('LIST_ONLY_OPEN_DOCS'));
   if (!listOnlyOpenDocs) {
     const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
-    if (!docsFromDiskCache || (currTimestamp - docsFromDiskCache['timestamp'] > 250)) {
+    if (!docsFromDiskCache || !initialRunTimestamp || initialRunTimestamp > docsFromDiskCache['timestamp']) {
       needRerunning = true;
-      if (!app.running()) {
+      if (!initialRunTimestamp && !app.running()) {
         asyncUpdateDocListCache();
       }
     }
@@ -85,6 +92,9 @@ function run() {
     items,
   };
   if (needRerunning) {
+    result['variables'] = {
+      initialRunTimestamp: `${initialRunTimestamp || currTimestamp}`,
+    };
     result['rerun'] = 0.1;
   }
 

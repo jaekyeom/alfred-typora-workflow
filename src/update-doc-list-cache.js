@@ -126,9 +126,11 @@ function run() {
 
   writeJSONToFile({
     timestamp: Date.now(),
+    version: 1,
     openDocs: openDocs,
   }, alfredWorkflowCachePath + '/open_docs_cache.json');
 
+  const filePattern = parseInt($.getenv('LIST_ONLY_MARKDOWN_FILES')) ? '*.md' : '*';
   const numRecentDirs = parseInt($.getenv('NUM_RECENT_DIRS'));
   const alfredWorkflowDataPath = $($.getenv('alfred_workflow_data')).stringByStandardizingPath.js;
   const dataPath = alfredWorkflowDataPath + '/data.json';
@@ -144,7 +146,8 @@ function run() {
   }
 
   if (!listOnlyOpenDocs) {
-    const docsFromDisk = [];
+    const markdownDocsFromDisk = [];
+    const otherFilesFromDisk = [];
     const processedDirs = new Set();
     const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
@@ -152,11 +155,11 @@ function run() {
       const dir = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
       mruDirList.add(dir);
       if (!processedDirs.has(dir)) {
-        const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/*.md" || ls *.md`).split('\r');
+        const mdFiles = curr.doShellScript(`cd '${dirs[i].replace(/'/g, "'\\''")}'; gd="$(git rev-parse --show-toplevel)" && git ls-files --full-name --cached --others "$gd/${filePattern}" || find . -name "${filePattern}" -maxdepth 1 -type f -exec basename {} ';'`).split('\r');
         for (let d = 0; d < mdFiles.length; d++) {
           const name = $(mdFiles[d]).lastPathComponent.js;
           const path = dir + '/' + mdFiles[d];
-          docsFromDisk.push({
+          (name.endsWith('.md') ? markdownDocsFromDisk : otherFilesFromDisk).push({
             title: name,
             subtitle: path,
             quicklookurl: path,
@@ -164,7 +167,12 @@ function run() {
               /[^A-Za-z0-9]/g,
               " ",
             )}`,
-            icon: { path: 'icon_dimmed.png' },
+            icon: (name.endsWith('.md') ? {
+              path: 'icon_dimmed.png',
+            } : {
+              type: 'fileicon',
+              path: path,
+            }),
             arg: path,
             action: {
               file: path,
@@ -187,7 +195,8 @@ function run() {
 
     writeJSONToFile({
       timestamp: Date.now(),
-      docsFromDisk: docsFromDisk,
+      version: 1,
+      docsFromDisk: markdownDocsFromDisk.concat(otherFilesFromDisk),
     }, alfredWorkflowCachePath + '/docs_from_disk_cache.json');
   }
 
