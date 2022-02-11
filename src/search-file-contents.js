@@ -162,12 +162,47 @@ function run(args) {
       }
     };
 
-    searchFileContentsWithMdfind(
-      curr, targetDirs, [`${queryStrRaw}`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
-    const queryStrsSplitted = queryStrRaw.split(/\s+/);
-    if (queryStrsSplitted.length > 1) {
+    if (queryStrRaw.length == 0) {
+      if (app.running()) {
+        const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
+        if (openDocsCache) {
+          openDocsCache['openDocsRaw'].forEach(function(e) {
+            e['path'] && searchResultHandler(e['path']);
+          });
+        }
+      }
+      if (!searchOnlyOpenDocs || !searchOnlyMarkdownFiles) {
+        const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
+        if (docsFromDiskCache) {
+          docsFromDiskCache['docsFromDiskRaw'].forEach(function(e) {
+            searchResultHandler(e['path']);
+          });
+        }
+        if (!searchOnlyMarkdownFiles) {
+          const otherFilesFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/other_files_from_disk_cache.json');
+          if (!otherFilesFromDiskCache ||
+              otherFilesFromDiskCache['version'] != workflowVersion ||
+              !initialRunTimestamp ||
+              initialRunTimestamp > otherFilesFromDiskCache['timestamp']) {
+            needRerunning = true;
+          }
+          if (otherFilesFromDiskCache) {
+            otherFilesFromDiskCache['otherFilesFromDiskRaw'].forEach(function(e) {
+              searchResultHandler(e['path']);
+            });
+          }
+        }
+      }
+    } else {
       searchFileContentsWithMdfind(
-        curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+        curr, targetDirs, [`${queryStrRaw}`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+      searchFileContentsWithMdfind(
+        curr, targetDirs, [`${queryStrRaw}*`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+      const queryStrsSplitted = queryStrRaw.split(/\s+/);
+      if (queryStrsSplitted.length > 1) {
+        searchFileContentsWithMdfind(
+          curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+      }
     }
 
     if (items.length == 0) {

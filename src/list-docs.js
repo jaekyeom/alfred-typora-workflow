@@ -36,7 +36,7 @@ const constructOpenDocItem = function(rawItem) {
   return {
     title: name,
     subtitle: path,
-    quicklookurl: (hasPath ? path : null),
+    quicklookurl: (hasPath ? path : undefined),
     match: `${getExtension(name) || '.md'} ${name} ${path.replace(
       /[^A-Za-z0-9]/g,
       " ",
