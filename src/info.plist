@@ -912,6 +912,8 @@ fi</string>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string>list-tabs</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
@@ -1110,6 +1112,8 @@ fi</string>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string>list-tabs</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
