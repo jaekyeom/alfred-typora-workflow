@@ -1474,7 +1474,7 @@ fi</string>
 		<string>0</string>
 	</dict>
 	<key>version</key>
-	<string>1.1.1</string>
+	<string>1.1.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/jaekyeom/alfred-typora-workflow</string>
 </dict>
