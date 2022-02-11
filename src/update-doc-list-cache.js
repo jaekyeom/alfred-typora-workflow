@@ -116,6 +116,7 @@ function run() {
     timestamp: Date.now(),
     version: workflowVersion,
     openDocsRaw: openDocsRaw,
+    projectDirs: dirs,
   }, alfredWorkflowCachePath + '/open_docs_cache.json');
 
   const numRecentDirs = parseInt($.getenv('NUM_RECENT_DIRS'));
@@ -164,12 +165,14 @@ function run() {
       timestamp: Date.now(),
       version: workflowVersion,
       docsFromDiskRaw: listFiles('*.md'),
+      projectDirs: dirs,
     }, alfredWorkflowCachePath + '/docs_from_disk_cache.json');
 
     writeJSONToFile({
       timestamp: Date.now(),
       version: workflowVersion,
       otherFilesFromDiskRaw: listFiles('*'),
+      projectDirs: dirs,
     }, alfredWorkflowCachePath + '/other_files_from_disk_cache.json');
   }
 

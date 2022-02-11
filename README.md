@@ -21,6 +21,15 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
   - `⌥ + ↩`: Close the selected document (if it's open).
   - `⌘ + ↩`: Reveal file in Finder.
 
+### Searching contents of documents
+
+- `tyi {query}`: Search inside (i.e., the contents of) Typora documents. It automatically searches the parent Git repositories or directories for markdown files.
+- `tyi* {query}`: Search inside (i.e., the contents of) Typora documents and all types of files from the parent Git repositories or directories, *regardless of `SEARCH_ONLY_OPEN_DOCS_CONTENTS`*.
+- User actions
+  - `↩`: Open/activate the selected document or file.
+  - `⌥ + ↩`: Close the selected document (if it's open).
+  - `⌘ + ↩`: Reveal file in Finder.
+
 ### Copying relative markdown links to any files/directories
 
 - (Universal) [File Action](https://www.alfredapp.com/blog/tips-and-tricks/file-actions-from-alfred-or-finder/) `Copy relative links for Typora`: Copy markdown link(s) to the given file/directory path(s) relative to Typora's *active* document.
@@ -32,6 +41,7 @@ Download and install [Typora-Documents.alfredworkflow](https://github.com/jaekye
 
 - `LIST_ONLY_OPEN_DOCS`: If set to 0 (default), `ty` queries open documents and markdown files from the parent Git repositories or directories. If set to 1, `ty` only queries open documents.
 - `NUM_RECENT_DIRS`: The number of recent directories to keep and list files from. Set this to 0 to disable it. 5 by default.
+- `SEARCH_ONLY_OPEN_DOCS_CONTENTS`: If set to 0 (default), `tyi` searches the contents of open documents and markdown files from the parent Git repositories or directories. If set to 1, `tyi` only returns open documents.
 
 ## Credits
 
