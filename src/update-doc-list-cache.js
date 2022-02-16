@@ -57,7 +57,7 @@ const getProjectDir = (function() {
   let projectDirCache = {};
   return function(curr, dir) {
     if (projectDirCache[dir] === undefined) {
-      projectDirCache[dir] = curr.doShellScript(`cd '${dir.replace(/'/g, "'\\''")}'; git rev-parse --show-toplevel || pwd`);
+      projectDirCache[dir] = curr.doShellScript(`cd '${dir.replace(/'/g, "\\'")}'; git rev-parse --show-toplevel || pwd`);
     }
     return projectDirCache[dir];
   };
@@ -140,7 +140,7 @@ function run() {
       const processedDirs = new Set();
       dirs.forEach(function(dir) {
         if (!processedDirs.has(dir)) {
-          const files = curr.doShellScript(`cd '${dir.replace(/'/g, "'\\''")}'; find . \\( -path "./.*" -o -path "./*/.*" \\) -prune -o -type f -name "${pattern}"`).split('\r');
+          const files = curr.doShellScript(`cd '${dir.replace(/'/g, "\\'")}'; find . \\( -path "./.*" -o -path "./*/.*" \\) -prune -o -type f -name "${pattern}"`).split('\r');
           for (let d = 0; d < files.length; d++) {
             const name = $(files[d]).lastPathComponent.js;
             if (name.startsWith('.')) {

@@ -49,7 +49,7 @@ function run(args) {
   if (name === undefined) {
     const curr = Application.currentApplication();
     curr.includeStandardAdditions = true;
-    curr.doShellScript(`open -a Typora '${path.replace(/'/g, "'\\''")}'`);
+    curr.doShellScript(`open -a Typora '${path.replace(/'/g, "\\'")}'`);
   }
 }
 

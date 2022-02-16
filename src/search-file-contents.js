@@ -25,14 +25,14 @@ const asyncUpdateDocListCache = function() {
 
 const searchFileContentsWithMdfind = function(curr, targetDirs, queryStrs, queryStrJoiner, searchOnlyMarkdownFiles) {
   const argsTargetDirs = (targetDirs
-    .map(d => `-onlyin '${d.replace(/'/g, "'\\''")}'`)
+    .map(d => `-onlyin '${d.replace(/'/g, "\\'")}'`)
     .join(' '));
   const queryPrefixFiletype = (
     searchOnlyMarkdownFiles
     ? 'kMDItemContentType == "com.unknown.md" && '
     : '');
   const queryMain = (queryStrs
-    .map(q => `kMDItemTextContent == "${q}"cd`)
+    .map(q => `kMDItemTextContent == "${q.replace(/'/g, "\\'").replace(/"/g, '\\"')}"cd`)
     .join(queryStrJoiner));
   const results = curr.doShellScript(`mdfind ${argsTargetDirs} '${queryPrefixFiletype} (${queryMain})'`);
   if (results.length == 0) {
