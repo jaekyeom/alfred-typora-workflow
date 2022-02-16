@@ -198,11 +198,19 @@ function run(args) {
         curr, targetDirs, [`${queryStrRaw}`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
       searchFileContentsWithMdfind(
         curr, targetDirs, [`${queryStrRaw}*`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
-      const queryStrsSplitted = queryStrRaw.split(/\s+/);
-      if (queryStrsSplitted.length > 1) {
-        searchFileContentsWithMdfind(
-          curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+      const queryStrsSplitted = [];
+      {
+        const querySplitRe = /[^\s"]+|"([^"]*)"/gi;
+        let m;
+        do {
+          m = querySplitRe.exec(queryStrRaw);
+          if (m) {
+            queryStrsSplitted.push(m[1] || m[0]);
+          }
+        } while (m);
       }
+      searchFileContentsWithMdfind(
+        curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
     }
 
     if (items.length == 0) {
