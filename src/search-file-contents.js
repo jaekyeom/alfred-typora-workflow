@@ -222,6 +222,11 @@ function run(args) {
     }
   }
 
+  // This lets Alfred keep the selected item across different runs in the same session.
+  items.forEach(function(e) {
+    e['uid'] = `${e['subtitle']}--${initialRunTimestamp || currTimestamp}`;
+  })
+
   const result = {
     items,
   };
