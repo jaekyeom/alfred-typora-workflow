@@ -40,13 +40,18 @@ const getRelativePath = function(path, anchorPath) {
     }
     commonAncestorDepth = i + 1;
   }
-  return ('../'.repeat(anchorPath.length - commonAncestorDepth)
+  const relativePath = ('../'.repeat(anchorPath.length - commonAncestorDepth)
     + path.slice(commonAncestorDepth).join('/'));
+  return (relativePath.length == 0
+    ? './'
+    : relativePath)
 };
 
-const getMarkdownLink = function(path) {
-  const escapedText = $(path).lastPathComponent.js.replace(/([#_*/()<>])/g, '\\$1').replace(/([\[\]])/g, '\\\\$1');
-  const escapedPath = (path
+const getMarkdownLink = function(path, anchorPath) {
+  const escapedText = (path.length == 0
+    ? '/'
+    : path[path.length - 1].replace(/([#_*/()<>])/g, '\\$1').replace(/([\[\]])/g, '\\\\$1'));
+  const escapedPath = (getRelativePath(path, anchorPath)
     .replace(/[(]/g, '%28')
     .replace(/[)]/g, '%29')
     .replace(/\[/g, '%5B')
@@ -63,8 +68,6 @@ function run(args) {
   if (activeDocDirPath) {
     activeDocDirPath.pop();
   }
-  const relativePaths = args[0].split('\t').map(getPathComponents).map(p => getRelativePath(p, activeDocDirPath));
-
-  return relativePaths.map(getMarkdownLink).join('\n\n');
+  return args[0].split('\t').map(getPathComponents).map(p => getMarkdownLink(p, activeDocDirPath)).join('\n\n');
 }
 
