@@ -27,10 +27,14 @@ const searchFileContentsWithMdfind = function(curr, targetDirs, queryStrs, query
   const argsTargetDirs = (targetDirs
     .map(d => `-onlyin '${d.replace(/'/g, "\\'")}'`)
     .join(' '));
-  const queryPrefixFiletype = (
+  let queryPrefixFiletype = (
     searchOnlyMarkdownFiles
-    ? 'kMDItemContentType == "com.unknown.md" && '
+    ? '(kMDItemDisplayName == "*.md" || kMDItemContentType == "com.unknown.md") && '
     : '');
+  if (!searchOnlyMarkdownFiles && queryStrs.length > 1 && queryStrs[0].startsWith('.')) {
+    queryPrefixFiletype = `(kMDItemDisplayName == "*${queryStrs[0]}") && `;
+    queryStrs.shift();
+  }
   const queryMain = (queryStrs
     .map(q => `kMDItemTextContent == "${q.replace(/'/g, "\\'").replace(/"/g, '\\"')}"cd`)
     .join(queryStrJoiner));
