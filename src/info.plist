@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -153,6 +154,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>2E680974-10A0-46F4-880D-831D7A5082D1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3F1123A8-857E-4E81-A1AB-D0A1C8AF2C6B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C790E9D5-DB1C-4539-A17F-AA505172FBF7</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -323,6 +337,32 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>CE8988E0-FFB8-4BB6-8CEA-CA85823208A6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C0B20E78-A220-4C3A-86CB-5C3B27FB3441</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3F1123A8-857E-4E81-A1AB-D0A1C8AF2C6B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C790E9D5-DB1C-4539-A17F-AA505172FBF7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2ED17156-EDA4-46DD-B789-F90BD1B0B748</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -683,6 +723,8 @@
 				</array>
 				<key>elselabel</key>
 				<string>openFileFromDisk</string>
+				<key>hideelse</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
@@ -824,6 +866,8 @@ fi</string>
 				</array>
 				<key>elselabel</key>
 				<string>openGeneral</string>
+				<key>hideelse</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
@@ -1009,6 +1053,8 @@ fi</string>
 				</array>
 				<key>elselabel</key>
 				<string>noAction</string>
+				<key>hideelse</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
@@ -1039,6 +1085,8 @@ fi</string>
 				</array>
 				<key>elselabel</key>
 				<string>noAction</string>
+				<key>hideelse</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
@@ -1195,7 +1243,7 @@ fi</string>
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string>./get-markdown-links-to-files.js "{query}"</string>
+				<string>./get-markdown-links-to-files.js relative "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1228,6 +1276,86 @@ fi</string>
 			<string>062838FA-C871-4853-B526-60BAB97AC543</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>C790E9D5-DB1C-4539-A17F-AA505172FBF7</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>./get-markdown-links-to-files.js absolute "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3F1123A8-857E-4E81-A1AB-D0A1C8AF2C6B</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Copied markdown link(s) to file(s)!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>2ED17156-EDA4-46DD-B789-F90BD1B0B748</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<integer>1</integer>
+				<key>filetypes</key>
+				<array/>
+				<key>name</key>
+				<string>Copy absolute links for Typora</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>C0B20E78-A220-4C3A-86CB-5C3B27FB3441</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -1270,53 +1398,53 @@ fi</string>
 		<key>03FA9BEF-983A-4C4C-B2A2-D4870B876110</key>
 		<dict>
 			<key>xpos</key>
-			<integer>320</integer>
+			<real>320</real>
 			<key>ypos</key>
-			<integer>110</integer>
+			<real>110</real>
 		</dict>
 		<key>062838FA-C871-4853-B526-60BAB97AC543</key>
 		<dict>
 			<key>xpos</key>
-			<integer>595</integer>
+			<real>595</real>
 			<key>ypos</key>
-			<integer>535</integer>
+			<real>535</real>
 		</dict>
 		<key>0A528F90-202A-451C-8C52-B4999B82D4DD</key>
 		<dict>
 			<key>xpos</key>
-			<integer>315</integer>
+			<real>315</real>
 			<key>ypos</key>
-			<integer>480</integer>
+			<real>480</real>
 		</dict>
 		<key>0FFE43CE-5E39-4325-B0E4-F71946DCB6AB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>10</integer>
+			<real>15</real>
 		</dict>
 		<key>1D691548-8E9B-4AF7-B201-92E19A24C93D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>130</integer>
+			<real>130</real>
 		</dict>
 		<key>1EBFF4DC-7CE5-418A-B4DD-3857D32EA74E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>320</integer>
+			<real>320</real>
 			<key>ypos</key>
-			<integer>355</integer>
+			<real>355</real>
 		</dict>
 		<key>1EC2FFB0-C897-4A6A-8822-541B205550AE</key>
 		<dict>
 			<key>note</key>
 			<string>Copy the links to the files relative to Typora's active document, in the markdown format.</string>
 			<key>xpos</key>
-			<integer>250</integer>
+			<real>250</real>
 			<key>ypos</key>
-			<integer>535</integer>
+			<real>535</real>
 		</dict>
 		<key>28F7DE97-5ED2-4148-B59F-126E67492DC9</key>
 		<dict>
@@ -1325,144 +1453,176 @@ fi</string>
 			<key>note</key>
 			<string>OneUpdater</string>
 			<key>xpos</key>
-			<integer>565</integer>
+			<real>565</real>
 			<key>ypos</key>
-			<integer>210</integer>
+			<real>210</real>
 		</dict>
 		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<real>730</real>
 			<key>ypos</key>
-			<integer>235</integer>
+			<real>235</real>
+		</dict>
+		<key>2ED17156-EDA4-46DD-B789-F90BD1B0B748</key>
+		<dict>
+			<key>xpos</key>
+			<real>745</real>
+			<key>ypos</key>
+			<real>710</real>
 		</dict>
 		<key>33810977-7584-4152-BD77-73419EDC79FE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>255</integer>
+			<real>255</real>
 		</dict>
 		<key>342DB1B6-492B-4C31-84DE-85DF037E6CA0</key>
 		<dict>
 			<key>xpos</key>
-			<integer>565</integer>
+			<real>565</real>
 			<key>ypos</key>
-			<integer>135</integer>
+			<real>135</real>
+		</dict>
+		<key>3F1123A8-857E-4E81-A1AB-D0A1C8AF2C6B</key>
+		<dict>
+			<key>xpos</key>
+			<real>430</real>
+			<key>ypos</key>
+			<real>710</real>
 		</dict>
 		<key>46D1DFFD-DAE7-4498-A4FA-347106FF6178</key>
 		<dict>
 			<key>xpos</key>
-			<integer>155</integer>
+			<real>155</real>
 			<key>ypos</key>
-			<integer>255</integer>
+			<real>255</real>
 		</dict>
 		<key>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</key>
 		<dict>
 			<key>xpos</key>
-			<integer>880</integer>
+			<real>880</real>
 			<key>ypos</key>
-			<integer>250</integer>
+			<real>250</real>
 		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<real>730</real>
 			<key>ypos</key>
-			<integer>105</integer>
+			<real>105</real>
 		</dict>
 		<key>8A99F144-32E0-4D8B-8916-F8CB89CD6243</key>
 		<dict>
 			<key>xpos</key>
-			<integer>745</integer>
+			<real>745</real>
 			<key>ypos</key>
-			<integer>535</integer>
+			<real>535</real>
 		</dict>
 		<key>8E92A3C6-F9D8-4BD8-9CA9-01F8A6ED2F26</key>
 		<dict>
 			<key>xpos</key>
-			<integer>565</integer>
+			<real>565</real>
 			<key>ypos</key>
-			<integer>10</integer>
+			<real>15</real>
 		</dict>
 		<key>95F8E1D0-F996-4AF0-9234-2C06F53BC67F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>880</integer>
+			<real>880</real>
 			<key>ypos</key>
-			<integer>365</integer>
+			<real>365</real>
 		</dict>
 		<key>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</key>
 		<dict>
 			<key>xpos</key>
-			<integer>320</integer>
+			<real>320</real>
 			<key>ypos</key>
-			<integer>230</integer>
+			<real>230</real>
 		</dict>
 		<key>A3104666-2863-4F8D-A35A-CDAC567E7966</key>
 		<dict>
 			<key>xpos</key>
-			<integer>155</integer>
+			<real>155</real>
 			<key>ypos</key>
-			<integer>10</integer>
+			<real>15</real>
 		</dict>
 		<key>A7B25714-FB21-4CBE-A5EB-5255A8134AB5</key>
 		<dict>
 			<key>xpos</key>
-			<integer>155</integer>
+			<real>155</real>
 			<key>ypos</key>
-			<integer>130</integer>
+			<real>130</real>
 		</dict>
 		<key>AAC5A293-8F16-4E28-81E8-CCC904B32768</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>380</integer>
+			<real>380</real>
+		</dict>
+		<key>C0B20E78-A220-4C3A-86CB-5C3B27FB3441</key>
+		<dict>
+			<key>note</key>
+			<string>Copy the links to the files in the markdown format.</string>
+			<key>xpos</key>
+			<real>250</real>
+			<key>ypos</key>
+			<real>710</real>
 		</dict>
 		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>880</integer>
+			<real>880</real>
 			<key>ypos</key>
-			<integer>130</integer>
+			<real>130</real>
+		</dict>
+		<key>C790E9D5-DB1C-4539-A17F-AA505172FBF7</key>
+		<dict>
+			<key>xpos</key>
+			<real>595</real>
+			<key>ypos</key>
+			<real>710</real>
 		</dict>
 		<key>CC101C23-075F-455A-9A28-3EE6E1FD0C4E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>565</integer>
+			<real>565</real>
 			<key>ypos</key>
-			<integer>375</integer>
+			<real>375</real>
 		</dict>
 		<key>CE8988E0-FFB8-4BB6-8CEA-CA85823208A6</key>
 		<dict>
 			<key>xpos</key>
-			<integer>155</integer>
+			<real>155</real>
 			<key>ypos</key>
-			<integer>380</integer>
+			<real>380</real>
 		</dict>
 		<key>DAF312A6-04FE-4751-9A51-D569082E4804</key>
 		<dict>
 			<key>xpos</key>
-			<integer>430</integer>
+			<real>430</real>
 			<key>ypos</key>
-			<integer>535</integer>
+			<real>535</real>
 		</dict>
 		<key>EAE095B0-A445-46CC-95C7-6B1905922C38</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<real>730</real>
 			<key>ypos</key>
-			<integer>345</integer>
+			<real>345</real>
 		</dict>
 		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
 		<dict>
 			<key>xpos</key>
-			<integer>1010</integer>
+			<real>1010</real>
 			<key>ypos</key>
-			<integer>360</integer>
+			<real>360</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>variables</key>
 	<dict>
 		<key>LIST_ONLY_OPEN_DOCS</key>

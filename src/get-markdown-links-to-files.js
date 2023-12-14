@@ -63,11 +63,11 @@ function run(args) {
   ObjC.import('stdlib');
   ObjC.import('Foundation');
 
-  const activeDocDirPath = getActiveTyporaDocPath();
+  const activeDocDirPath = (args[0] == 'relative' ? getActiveTyporaDocPath() : null);
   // Get the directory path.
   if (activeDocDirPath) {
     activeDocDirPath.pop();
   }
-  return args[0].split('\t').map(getPathComponents).map(p => getMarkdownLink(p, activeDocDirPath)).join('\n\n');
+  return args[1].split('\t').map(getPathComponents).map(p => getMarkdownLink(p, activeDocDirPath)).join('\n\n');
 }
 
