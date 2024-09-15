@@ -83,7 +83,7 @@ const constructDocFromDiskItem = function(rawItem) {
       type: 'fileicon',
       path: path,
     }),
-    arg: path,
+    arg: JSON.stringify({path: path, projectDir: rawItem['projectDir']}),
     action: {
       file: path,
     },

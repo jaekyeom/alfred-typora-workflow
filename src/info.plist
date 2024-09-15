@@ -99,31 +99,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>A34F6C8F-CF41-40A6-A587-51A5DACA8F96</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>33810977-7584-4152-BD77-73419EDC79FE</key>
 		<array>
 			<dict>
@@ -153,7 +128,7 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>2E680974-10A0-46F4-880D-831D7A5082D1</string>
+				<string>F26A4E9A-4DC5-468D-8B9D-1127CE158EFD</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -658,21 +633,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
-				<string>/Applications/Typora.app</string>
-				<key>sourcefile</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -827,6 +787,29 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>./open-doc.js "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F26A4E9A-4DC5-468D-8B9D-1127CE158EFD</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argument</key>
 				<string>{query}</string>
 				<key>passthroughargument</key>
@@ -843,53 +826,6 @@ fi</string>
 			<string>A0AB4D3A-AAF1-470B-8AC6-B4B2E5CD3201</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>conditions</key>
-				<array>
-					<dict>
-						<key>inputstring</key>
-						<string></string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>4</integer>
-						<key>matchstring</key>
-						<string>.*[.]md$</string>
-						<key>outputlabel</key>
-						<string>openWithTypora</string>
-						<key>uid</key>
-						<string>A34F6C8F-CF41-40A6-A587-51A5DACA8F96</string>
-					</dict>
-				</array>
-				<key>elselabel</key>
-				<string>openGeneral</string>
-				<key>hideelse</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.conditional</string>
-			<key>uid</key>
-			<string>2E680974-10A0-46F4-880D-831D7A5082D1</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>openwith</key>
-				<string></string>
-				<key>sourcefile</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</string>
-			<key>version</key>
-			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1457,13 +1393,6 @@ fi</string>
 			<key>ypos</key>
 			<real>210</real>
 		</dict>
-		<key>2E680974-10A0-46F4-880D-831D7A5082D1</key>
-		<dict>
-			<key>xpos</key>
-			<real>730</real>
-			<key>ypos</key>
-			<real>235</real>
-		</dict>
 		<key>2ED17156-EDA4-46DD-B789-F90BD1B0B748</key>
 		<dict>
 			<key>xpos</key>
@@ -1498,13 +1427,6 @@ fi</string>
 			<real>155</real>
 			<key>ypos</key>
 			<real>255</real>
-		</dict>
-		<key>4A9645C9-0F91-48F0-973C-C2F7D6226ED8</key>
-		<dict>
-			<key>xpos</key>
-			<real>880</real>
-			<key>ypos</key>
-			<real>250</real>
 		</dict>
 		<key>7B200672-2C74-4474-96C9-99BC42F29DBE</key>
 		<dict>
@@ -1571,13 +1493,6 @@ fi</string>
 			<key>ypos</key>
 			<real>710</real>
 		</dict>
-		<key>C1DF8CF4-5FA8-4EC6-B4E3-C20002B6C98C</key>
-		<dict>
-			<key>xpos</key>
-			<real>880</real>
-			<key>ypos</key>
-			<real>130</real>
-		</dict>
 		<key>C790E9D5-DB1C-4539-A17F-AA505172FBF7</key>
 		<dict>
 			<key>xpos</key>
@@ -1612,6 +1527,13 @@ fi</string>
 			<real>730</real>
 			<key>ypos</key>
 			<real>345</real>
+		</dict>
+		<key>F26A4E9A-4DC5-468D-8B9D-1127CE158EFD</key>
+		<dict>
+			<key>xpos</key>
+			<real>730</real>
+			<key>ypos</key>
+			<real>215</real>
 		</dict>
 		<key>FA107BB5-9BD9-4D1E-94F6-1B507A9C0925</key>
 		<dict>

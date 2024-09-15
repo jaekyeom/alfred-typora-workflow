@@ -90,16 +90,9 @@ function run() {
         const hasPath = !!doc.path();
 
         if (!addedDocs.has(path)) {
-          openDocsRaw.push({
-            windowId: win.id(),
-            name: doc.name(),
-            path: doc.path(),
-            modified: doc.modified(),
-          });
-          addedDocs.add(path);
-
+          let dir = null;
           if (hasPath) {
-            const dir = getProjectDir(
+            dir = getProjectDir(
               curr,
               $.NSString.alloc.initWithUTF8String(path).stringByDeletingLastPathComponent.js + '/');
             if (!addedDirs.has(dir)) {
@@ -107,6 +100,15 @@ function run() {
               addedDirs.add(dir);
             }
           }
+
+          openDocsRaw.push({
+            windowId: win.id(),
+            name: doc.name(),
+            path: doc.path(),
+            projectDir: dir,
+            modified: doc.modified(),
+          });
+          addedDocs.add(path);
         }
       }
     }
@@ -151,6 +153,7 @@ function run() {
               allFiles.push({
                 name: name,
                 path: path,
+                projectDir: dir,
               });
               processedFiles.add(path);
             }
