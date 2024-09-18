@@ -5,7 +5,11 @@ function run(args) {
   const curr = Application.currentApplication();
   curr.includeStandardAdditions = true;
   if (arg.path.endsWith('.md')) {
-    curr.doShellScript(`open -a Typora '${arg.projectDir.replace(/'/g, "\\'")}' '${arg.path.replace(/'/g, "\\'")}'`);
+    if (arg.projectDir) {
+      curr.doShellScript(`open -a Typora '${arg.projectDir.replace(/'/g, "\\'")}' '${arg.path.replace(/'/g, "\\'")}'`);
+    } else {
+      curr.doShellScript(`open -a Typora '${arg.path.replace(/'/g, "\\'")}'`);
+    }
   } else {
     curr.doShellScript(`open '${arg.path.replace(/'/g, "\\'")}'`);
   }

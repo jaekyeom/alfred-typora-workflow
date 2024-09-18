@@ -71,6 +71,7 @@ function run(args) {
   const queryStrRaw = args[1];
 
   const openDocs = {};
+  const docsFromDisk = {};
   let targetDirs = null;
 
   if (app.running()) {
@@ -106,6 +107,9 @@ function run(args) {
       }
     }
     if (docsFromDiskCache) {
+      docsFromDiskCache['docsFromDiskRaw'].forEach(function(e) {
+        docsFromDisk[e['path']] = e;
+      });
       targetDirs = docsFromDiskCache['projectDirs'];
     }
   }
@@ -117,7 +121,7 @@ function run(args) {
       subtitle: `Please wait while loading data...`,
     });
   } else {
-    const constructItem = function(path) {
+    const constructItem = function(path, projectDir) {
       const name = $(path).lastPathComponent.js;
       return {
         title: name,
@@ -133,7 +137,7 @@ function run(args) {
         }),
         arg: (openDocs[path]
           ? `${openDocs[path]['windowId']},${path}`
-          : path),
+          : JSON.stringify({path: path, projectDir: projectDir})),
         action: {
           file: path,
         },
@@ -156,12 +160,20 @@ function run(args) {
       };
     };
 
-    const searchResultHandler = function(path) {
+    const searchResultHandler = function(path, projectDir) {
       if (searchOnlyOpenDocs && !openDocs[path]) {
         return;
       }
       if (!addedDocs.has(path)) {
-        items.push(constructItem(path));
+        if (projectDir === undefined) {
+          projectDir = null;
+          if (path in openDocs) {
+            projectDir = openDocs[path]['projectDir'];
+          } else if (path in docsFromDisk) {
+            projectDir = docsFromDisk[path]['projectDir'];
+          }
+        }
+        items.push(constructItem(path, projectDir));
         addedDocs.add(path);
       }
     };
@@ -171,7 +183,7 @@ function run(args) {
         const openDocsCache = readJSONFile(alfredWorkflowCachePath + '/open_docs_cache.json');
         if (openDocsCache) {
           openDocsCache['openDocsRaw'].forEach(function(e) {
-            e['path'] && searchResultHandler(e['path']);
+            e['path'] && searchResultHandler(e['path'], e['projectDir']);
           });
         }
       }
@@ -179,7 +191,7 @@ function run(args) {
         const docsFromDiskCache = readJSONFile(alfredWorkflowCachePath + '/docs_from_disk_cache.json');
         if (docsFromDiskCache) {
           docsFromDiskCache['docsFromDiskRaw'].forEach(function(e) {
-            searchResultHandler(e['path']);
+            searchResultHandler(e['path'], e['projectDir']);
           });
         }
         if (!searchOnlyMarkdownFiles) {
@@ -192,16 +204,19 @@ function run(args) {
           }
           if (otherFilesFromDiskCache) {
             otherFilesFromDiskCache['otherFilesFromDiskRaw'].forEach(function(e) {
-              searchResultHandler(e['path']);
+              searchResultHandler(e['path'], e['projectDir']);
             });
           }
         }
       }
     } else {
+      const searchFileContentsResultHandler = function(path) {
+        return searchResultHandler(path, undefined);
+      };
       searchFileContentsWithMdfind(
-        curr, targetDirs, [`${queryStrRaw}`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+        curr, targetDirs, [`${queryStrRaw}`], ' && ', searchOnlyMarkdownFiles).forEach(searchFileContentsResultHandler);
       searchFileContentsWithMdfind(
-        curr, targetDirs, [`${queryStrRaw}*`], ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+        curr, targetDirs, [`${queryStrRaw}*`], ' && ', searchOnlyMarkdownFiles).forEach(searchFileContentsResultHandler);
       const queryStrsSplitted = [];
       {
         const querySplitRe = /[^\s"]+|"([^"]*)"/gi;
@@ -214,7 +229,7 @@ function run(args) {
         } while (m);
       }
       searchFileContentsWithMdfind(
-        curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchResultHandler);
+        curr, targetDirs, queryStrsSplitted, ' && ', searchOnlyMarkdownFiles).forEach(searchFileContentsResultHandler);
     }
 
     if (items.length == 0) {
